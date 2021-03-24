@@ -34,9 +34,6 @@ ros::Publisher pub;
 
 void pickCallback(const moveit_msgs::msg::Grasp::SharedPtr ros2_msg)
 {
-  if (pub.getNumSubscribers() == 0)
-    return;
-
   moveit_msgs::Grasp ros1_msg;
   ros1_msg.id = ros2_msg->id;
   ros1_msg.grasp_pose.header.frame_id = ros2_msg->grasp_pose.header.frame_id;
@@ -59,13 +56,13 @@ int main(int argc, char * argv[])
   rclcpp::init(argc, argv);
   auto node = rclcpp::Node::make_shared("pick_2_to_1");
   auto sub = node->create_subscription<moveit_msgs::msg::Grasp>(
-    "input", 100, pickCallback);
+    "input", 1, pickCallback);
 
 
   // ROS 1 node and publisher
   ros::init(argc, argv, "pick_2_to_1");
   ros::NodeHandle n;
-  pub = n.advertise<moveit_msgs::Grasp>("output", 100);
+  pub = n.advertise<moveit_msgs::Grasp>("output", 1);
 
   rclcpp::spin(node);
 

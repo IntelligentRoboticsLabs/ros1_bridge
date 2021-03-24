@@ -37,9 +37,6 @@ rclcpp::Publisher<moveit_msgs::msg::MoveItErrorCodes>::SharedPtr pub;
 
 void moveitResultCallback(boost::shared_ptr<moveit_msgs::MoveItErrorCodes> ros1_msg)
 {
-  if (pub->get_subscription_count() == 0)
-    return;
-
   auto ros2_msg = std::make_unique<moveit_msgs::msg::MoveItErrorCodes>();
 
   ros2_msg->val = ros1_msg->val;
@@ -52,7 +49,7 @@ int main(int argc, char * argv[])
   // ROS 2 node and publisher
   rclcpp::init(argc, argv);
   auto node = rclcpp::Node::make_shared("moveit_result_1_to_2");
-  pub = node->create_publisher<moveit_msgs::msg::MoveItErrorCodes>("output", rclcpp::QoS(100).keep_all().transient_local());
+  pub = node->create_publisher<moveit_msgs::msg::MoveItErrorCodes>("output", 1);
 
   // ROS 1 node and subscriber
   ros::init(argc, argv, "moveit_result_1_to_2");

@@ -34,9 +34,6 @@ ros::Publisher pub;
 
 void placeCallback(const moveit_msgs::msg::PlaceLocation::SharedPtr ros2_msg)
 {
-  if (pub.getNumSubscribers() == 0)
-    return;
-
   moveit_msgs::PlaceLocation ros1_msg;
   ros1_msg.id = ros2_msg->id;
   ros1_msg.place_pose.header.frame_id = ros2_msg->place_pose.header.frame_id;
@@ -59,13 +56,13 @@ int main(int argc, char * argv[])
   rclcpp::init(argc, argv);
   auto node = rclcpp::Node::make_shared("place_2_to_1");
   auto sub = node->create_subscription<moveit_msgs::msg::PlaceLocation>(
-    "input", 100, placeCallback);
+    "input", 1, placeCallback);
 
 
   // ROS 1 node and publisher
   ros::init(argc, argv, "place_2_to_1");
   ros::NodeHandle n;
-  pub = n.advertise<moveit_msgs::PlaceLocation>("output", 100);
+  pub = n.advertise<moveit_msgs::PlaceLocation>("output", 1);
 
   rclcpp::spin(node);
 
