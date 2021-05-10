@@ -55,23 +55,88 @@ def generate_launch_description():
             package='ros1_bridge',
             executable='scan_1_to_2',
             output='screen',
-            parameters=[]),
+            parameters=[],
+            remappings=[
+                ('input', 'scan_raw'),
+                ('output', 'scan')
+            ]
+        ),
 
         Node(
             package='ros1_bridge',
             executable='odom_1_to_2',
             output='screen',
-            parameters=[]),
+            parameters=[],
+            remappings=[
+                ('input', 'mobile_base_controller/odom'),
+                ('output', 'odom')
+            ]
+        ),
 
         Node(
             package='ros1_bridge',
             executable='twist_2_to_1',
             output='screen',
-            parameters=[]),
+            parameters=[],
+            remappings=[
+                ('input', 'nav_vel'),
+                ('output', 'nav_vel')
+            ]
+        ),
 
         Node(
             package='ros1_bridge',
             executable='imu_1_to_2',
             output='screen',
-            parameters=[]),
-        ])
+            parameters=[],
+            remappings=[
+                ('input', 'base_imu'),
+                ('output', 'base_imu')
+            ]
+        ),
+
+        Node(
+            package='ros1_bridge',
+            executable='image_1_to_2',
+            output='screen',
+            parameters=[],
+            remappings=[
+                ('input', 'xtion/rgb/image_raw'),
+                ('output', 'xtion/rgb/image_raw')
+            ]
+        ),
+
+        Node(
+            package='ros1_bridge',
+            executable='pc2_1_to_2',
+            output='screen',
+            parameters=[],
+            remappings=[
+                ('input', 'xtion/depth_registered/points'),
+                ('output', 'xtion/depth_registered/points')
+            ]
+        ),
+
+        Node(
+            package='ros1_bridge',
+            executable='jointstates_1_to_2',
+            output='screen',
+            parameters=[],
+            remappings=[
+                ('input', 'joint_states'),
+                ('output', 'joint_states')
+            ]
+        ),
+
+        Node(
+            package='ros1_bridge',
+            executable='jointtrajectory_2_to_1',
+            output='screen',
+            parameters=[],
+            remappings=[
+                ('input', 'head_controller/command'),
+                ('output', 'head_controller/command')
+            ]
+        ),
+
+    ])

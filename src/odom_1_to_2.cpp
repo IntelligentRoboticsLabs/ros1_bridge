@@ -76,12 +76,12 @@ int main(int argc, char * argv[])
   // ROS 2 node and publisher
   rclcpp::init(argc, argv);
   auto node = rclcpp::Node::make_shared("odom_1_to_2");
-  pub = node->create_publisher<nav_msgs::msg::Odometry>("/odom", 100);
+  pub = node->create_publisher<nav_msgs::msg::Odometry>("output", 100);
 
   // ROS 1 node and subscriber
   ros::init(argc, argv, "odom_1_to_2");
   ros::NodeHandle n;
-  ros::Subscriber sub = n.subscribe("/mobile_base_controller/odom", 100, OdomCallback);
+  ros::Subscriber sub = n.subscribe("input", 100, OdomCallback);
 
   ros::spin();
 

@@ -22,35 +22,33 @@
 # pragma clang diagnostic ignored "-Wunused-parameter"
 #endif
 #include "ros/ros.h"
-#include "sensor_msgs/Image.h"
+#include "sensor_msgs/JointState.h"
 #ifdef __clang__
 # pragma clang diagnostic pop
 #endif
 
 // include ROS 2
 #include "rclcpp/rclcpp.hpp"
-#include "sensor_msgs/msg/image.hpp"
+#include "sensor_msgs/msg/joint_state.hpp"
 
 
-rclcpp::Publisher<sensor_msgs::msg::Image>::SharedPtr pub;
+rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr pub;
 
 
-void TFCallback(boost::shared_ptr<sensor_msgs::Image> ros1_msg)
+void JointStateCallback(boost::shared_ptr<sensor_msgs::JointState> ros1_msg)
 {
   if (pub->get_subscription_count() == 0)
     return;
 
-  auto ros2_msg = std::make_unique<sensor_msgs::msg::Image>();
+  auto ros2_msg = std::make_unique<sensor_msgs::msg::JointState>();
 
   ros2_msg->header.frame_id = ros1_msg->header.frame_id;
   ros2_msg->header.stamp = rclcpp::Time(ros1_msg->header.stamp.toNSec());
 
-  ros2_msg->height = ros1_msg->height;
-  ros2_msg->width = ros1_msg->width;
-  ros2_msg->encoding = ros1_msg->encoding;
-  ros2_msg->is_bigendian = ros1_msg->is_bigendian;
-  ros2_msg->step = ros1_msg->step;
-  ros2_msg->data = std::move(ros1_msg->data);
+  ros2_msg->name = std::move(ros1_msg->name);
+  ros2_msg->position = std::move(ros1_msg->position);
+  ros2_msg->velocity = std::move(ros1_msg->velocity);
+  ros2_msg->effort = std::move(ros1_msg->effort);
 
   pub->publish(std::move(ros2_msg));
 }
@@ -59,13 +57,13 @@ int main(int argc, char * argv[])
 {
   // ROS 2 node and publisher
   rclcpp::init(argc, argv);
-  auto node = rclcpp::Node::make_shared("image_1_to_2");
-  pub = node->create_publisher<sensor_msgs::msg::Image>("output", 100);
+  auto node = rclcpp::Node::make_shared("jointstate_1_to_2");
+  pub = node->create_publisher<sensor_msgs::msg::JointState>("output", 100);
 
   // ROS 1 node and subscriber
-  ros::init(argc, argv, "image_1_to_2");
+  ros::init(argc, argv, "jointstate_1_to_2");
   ros::NodeHandle n;
-  ros::Subscriber sub = n.subscribe("input", 100, TFCallback);
+  ros::Subscriber sub = n.subscribe("input", 100, JointStateCallback);
 
   ros::spin();
 
