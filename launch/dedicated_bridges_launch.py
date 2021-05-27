@@ -108,12 +108,35 @@ def generate_launch_description():
 
         Node(
             package='ros1_bridge',
+            executable='image_1_to_2',
+            name='depth_image_1_to_2',
+            output='screen',
+            parameters=[],
+            remappings=[
+                ('input', 'xtion/depth_registered/image_raw'),
+                ('output', 'xtion/depth_registered/image_raw')
+            ]
+        ),
+
+        Node(
+            package='ros1_bridge',
             executable='pc2_1_to_2',
             output='screen',
             parameters=[],
             remappings=[
                 ('input', 'xtion/depth_registered/points'),
                 ('output', 'xtion/depth_registered/points')
+            ]
+        ),
+
+        Node(
+            package='ros1_bridge',
+            executable='camera_info_1_to_2',
+            output='screen',
+            parameters=[],
+            remappings=[
+                ('input', 'xtion/depth_registered/camera_info'),
+                ('output', 'xtion/depth_registered/camera_info')
             ]
         ),
 

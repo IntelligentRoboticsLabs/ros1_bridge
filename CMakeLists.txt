@@ -205,6 +205,9 @@ custom_executable(pc2_1_to_2 "src/pc2_1_to_2.cpp"
 custom_executable(image_1_to_2 "src/image_1_to_2.cpp"
   ROS1_DEPENDENCIES
   TARGET_DEPENDENCIES "sensor_msgs")
+custom_executable(camera_info_1_to_2 "src/camera_info_1_to_2.cpp"
+  ROS1_DEPENDENCIES
+  TARGET_DEPENDENCIES "sensor_msgs")
 custom_executable(imu_1_to_2 "src/imu_1_to_2.cpp"
   ROS1_DEPENDENCIES
   TARGET_DEPENDENCIES "sensor_msgs")

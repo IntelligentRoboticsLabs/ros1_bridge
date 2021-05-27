@@ -35,7 +35,7 @@
 rclcpp::Publisher<sensor_msgs::msg::Image>::SharedPtr pub;
 
 
-void TFCallback(boost::shared_ptr<sensor_msgs::Image> ros1_msg)
+void ImageCallback(boost::shared_ptr<sensor_msgs::Image> ros1_msg)
 {
   if (pub->get_subscription_count() == 0)
     return;
@@ -60,12 +60,12 @@ int main(int argc, char * argv[])
   // ROS 2 node and publisher
   rclcpp::init(argc, argv);
   auto node = rclcpp::Node::make_shared("image_1_to_2");
-  pub = node->create_publisher<sensor_msgs::msg::Image>("output", 100);
+  pub = node->create_publisher<sensor_msgs::msg::Image>("output", 1);
 
   // ROS 1 node and subscriber
-  ros::init(argc, argv, "image_1_to_2");
+  ros::init(argc, argv, "image_1_to_2", ros::init_options::AnonymousName);
   ros::NodeHandle n;
-  ros::Subscriber sub = n.subscribe("input", 100, TFCallback);
+  ros::Subscriber sub = n.subscribe("input", 1, ImageCallback);
 
   ros::spin();
 
