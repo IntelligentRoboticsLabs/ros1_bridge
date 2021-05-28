@@ -125,8 +125,8 @@ def generate_launch_description():
             output='screen',
             parameters=[],
             remappings=[
-                ('input', 'xtion/rgb/camera_info'),
-                ('output', 'xtion/rgb/camera_info')
+                ('input', 'xtion/depth_registered/camera_info'),
+                ('output', 'xtion/depth_registered/camera_info')
             ]
         ),
 
