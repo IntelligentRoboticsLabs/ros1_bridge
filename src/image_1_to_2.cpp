@@ -63,7 +63,7 @@ int main(int argc, char * argv[])
   pub = node->create_publisher<sensor_msgs::msg::Image>("output", 100);
 
   // ROS 1 node and subscriber
-  ros::init(argc, argv, "image_1_to_2");
+  ros::init(argc, argv, "image_1_to_2", ros::init_options::AnonymousName);
   ros::NodeHandle n;
   ros::Subscriber sub = n.subscribe("input", 100, TFCallback);
 
