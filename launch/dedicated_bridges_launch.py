@@ -196,4 +196,15 @@ def generate_launch_description():
             ]
         ),
 
+        Node(
+            package='ros1_bridge',
+            node_executable='dope_1_to_2',
+            output='screen',
+            parameters=[],
+            remappings=[
+                ('input', 'dope/detected_objects'),
+                ('output', 'dope/detected_objects')
+            ]
+        ),
+
     ])

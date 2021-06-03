@@ -22,6 +22,7 @@ find_package(sensor_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(trajectory_msgs REQUIRED)
 find_package(moveit_msgs REQUIRED)
+find_package(vision_msgs REQUIRED)
 
 
 # find ROS 1 packages
@@ -53,6 +54,7 @@ find_ros1_package(sensor_msgs REQUIRED)
 find_ros1_package(geometry_msgs REQUIRED)
 find_ros1_package(trajectory_msgs REQUIRED)
 find_ros1_package(moveit_msgs REQUIRED)
+find_ros1_package(vision_msgs REQUIRED)
 
 # find ROS 1 packages with messages / services
 include(cmake/find_ros1_interface_packages.cmake)
@@ -167,6 +169,7 @@ function(custom_executable target)
       "ros1_geometry_msgs"
       "ros1_trajectory_msgs"
       "ros1_moveit_msgs"
+      "ros1_vision_msgs"
       )
   endif()
   if(ARG_DEPENDENCIES)
@@ -226,6 +229,9 @@ custom_executable(place_2_to_1 "src/place_2_to_1.cpp"
 custom_executable(moveit_result_1_to_2 "src/moveit_result_1_to_2.cpp"
   ROS1_DEPENDENCIES
   TARGET_DEPENDENCIES "moveit_msgs")
+custom_executable(dope_1_to_2 "src/dope_1_to_2.cpp"
+  ROS1_DEPENDENCIES
+  TARGET_DEPENDENCIES "vision_msgs")
 custom_executable(simple_bridge "src/simple_bridge.cpp"
   ROS1_DEPENDENCIES
   TARGET_DEPENDENCIES "std_msgs")
@@ -247,6 +253,7 @@ ament_target_dependencies(${PROJECT_NAME}
   "ros1_geometry_msgs"
   "ros1_trajectory_msgs"
   "ros1_moveit_msgs"
+  "ros1_vision_msgs"
   )
   
 install(DIRECTORY launch DESTINATION share/${PROJECT_NAME})
