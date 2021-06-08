@@ -162,4 +162,48 @@ def generate_launch_description():
             ]
         ),
 
+        Node(
+            package='ros1_bridge',
+            node_executable='pick_2_to_1',
+            output='screen',
+            parameters=[],
+            remappings=[
+                ('input', 'moveit/pick'),
+                ('output', 'moveit/pick')
+            ]
+        ),
+
+        Node(
+            package='ros1_bridge',
+            node_executable='place_2_to_1',
+            output='screen',
+            parameters=[],
+            remappings=[
+                ('input', 'moveit/place'),
+                ('output', 'moveit/place')
+            ]
+        ),
+
+        Node(
+            package='ros1_bridge',
+            node_executable='moveit_result_1_to_2',
+            output='screen',
+            parameters=[],
+            remappings=[
+                ('input', 'moveit/result'),
+                ('output', 'moveit/result')
+            ]
+        ),
+
+        Node(
+            package='ros1_bridge',
+            node_executable='dope_1_to_2',
+            output='screen',
+            parameters=[],
+            remappings=[
+                ('input', 'dope/detected_objects'),
+                ('output', 'dope/detected_objects')
+            ]
+        ),
+
     ])
