@@ -71,7 +71,7 @@ int main(int argc, char * argv[])
   // ROS 2 node and publisher
   rclcpp::init(argc, argv);
   auto node = rclcpp::Node::make_shared("pc2_1_to_2");
-  pub = node->create_publisher<sensor_msgs::msg::PointCloud2>("output", 100);
+  pub = node->create_publisher<sensor_msgs::msg::PointCloud2>("output", rclcpp::SensorDataQoS());
 
   // ROS 1 node and subscriber
   ros::init(argc, argv, "pc2_1_to_2");
